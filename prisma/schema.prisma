@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/client"
+  binaryTargets = ["native", "darwin", "darwin-arm64"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int         @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String      @unique
+  password  String
+  isAdmin   Boolean     @default(false)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  plants    UserPlant[]
+  machines  Machine[]   @relation("MachineOwner")
+}
+
+model UserPlant {
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  plantId   Int
+  plant     Plant    @relation(fields: [plantId], references: [id])
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@id([userId, plantId])
+}
+
+model Plant {
+  id            Int            @id @default(autoincrement())
+  name          String
+  description   String? // Made optional
+  length        Int
+  width         Int
+  height        Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  users         UserPlant[]
+  machines      Machine[]
+  materialFlows MaterialFlow[]
+}
+
+model MachineType {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @default(now())
+  machines    Machine[]
+}
+
+model ExternalFactor {
+  id          Int                     @id @default(autoincrement())
+  name        String
+  description String?
+  createdAt   DateTime                @default(now())
+  updatedAt   DateTime                @default(now())
+  producers   MachineExternalFactor[] @relation("FactorProducers")
+  sensitives  MachineExternalFactor[] @relation("FactorSensitives")
+}
+
+model MachineExternalFactor {
+  machineId       Int
+  machine         Machine         @relation(fields: [machineId], references: [id])
+  factorId        Int
+  producedFactor  ExternalFactor? @relation("FactorProducers", fields: [factorId], references: [id])
+  sensitiveFactor ExternalFactor? @relation("FactorSensitives", fields: [factorId], references: [id])
+  isProducer      Boolean
+  isSensitive     Boolean
+  intensity       Int? // On a scale (1-10), how much does this machine produce/is sensitive to
+  notes           String? // Additional notes for this relationship
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@id([machineId, factorId])
+}
+
+model Machine {
+  id               Int                     @id @default(autoincrement())
+  name             String
+  serialNumber     String
+  typeId           Int
+  type             MachineType             @relation(fields: [typeId], references: [id])
+  length           Int
+  width            Int
+  height           Int
+  ownerId          Int
+  owner            User                    @relation("MachineOwner", fields: [ownerId], references: [id])
+  plantId          Int?
+  plant            Plant?                  @relation(fields: [plantId], references: [id])
+  x                Float?
+  y                Float?
+  z                Float?
+  rotation         Float? // Added rotation field to store rotation angle
+  color            String? // Color for displaying the machine in floor plan
+  factors          MachineExternalFactor[]
+  flowSources      MaterialFlow[]          @relation("FlowSource")
+  flowDestinations MaterialFlow[]          @relation("FlowDestination")
+  createdAt        DateTime                @default(now())
+  updatedAt        DateTime                @default(now())
+}
+
+model MaterialFlow {
+  id            Int      @id @default(autoincrement())
+  plantId       Int
+  plant         Plant    @relation(fields: [plantId], references: [id])
+  fromMachineId Int
+  fromMachine   Machine  @relation("FlowSource", fields: [fromMachineId], references: [id])
+  toMachineId   Int
+  toMachine     Machine  @relation("FlowDestination", fields: [toMachineId], references: [id])
+  flowAmount    Float
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([plantId, fromMachineId, toMachineId])
+}
