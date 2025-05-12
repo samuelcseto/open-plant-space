@@ -315,7 +315,7 @@ export namespace Prisma {
 
   /**
    * Prisma Client JS version: 6.1.0
-   * Query Engine version: 06fc58a368dc7be9fbbbe894adf8d445d208c284
+   * Query Engine version: 11f085a2012c0f4778414c8db2651556ee0ef959
    */
   export type PrismaVersion = {
     client: string
@@ -10297,8 +10297,8 @@ export namespace Prisma {
     role?: StringFilter<"UserPlant"> | string
     createdAt?: DateTimeFilter<"UserPlant"> | Date | string
     updatedAt?: DateTimeFilter<"UserPlant"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    plant?: XOR<PlantRelationFilter, PlantWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plant?: XOR<PlantScalarRelationFilter, PlantWhereInput>
   }
 
   export type UserPlantOrderByWithRelationInput = {
@@ -10321,8 +10321,8 @@ export namespace Prisma {
     role?: StringFilter<"UserPlant"> | string
     createdAt?: DateTimeFilter<"UserPlant"> | Date | string
     updatedAt?: DateTimeFilter<"UserPlant"> | Date | string
-    user?: XOR<UserRelationFilter, UserWhereInput>
-    plant?: XOR<PlantRelationFilter, PlantWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plant?: XOR<PlantScalarRelationFilter, PlantWhereInput>
   }, "userId_plantId">
 
   export type UserPlantOrderByWithAggregationInput = {
@@ -10556,9 +10556,9 @@ export namespace Prisma {
     notes?: StringNullableFilter<"MachineExternalFactor"> | string | null
     createdAt?: DateTimeFilter<"MachineExternalFactor"> | Date | string
     updatedAt?: DateTimeFilter<"MachineExternalFactor"> | Date | string
-    machine?: XOR<MachineRelationFilter, MachineWhereInput>
-    producedFactor?: XOR<ExternalFactorNullableRelationFilter, ExternalFactorWhereInput> | null
-    sensitiveFactor?: XOR<ExternalFactorNullableRelationFilter, ExternalFactorWhereInput> | null
+    machine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
+    producedFactor?: XOR<ExternalFactorNullableScalarRelationFilter, ExternalFactorWhereInput> | null
+    sensitiveFactor?: XOR<ExternalFactorNullableScalarRelationFilter, ExternalFactorWhereInput> | null
   }
 
   export type MachineExternalFactorOrderByWithRelationInput = {
@@ -10588,9 +10588,9 @@ export namespace Prisma {
     notes?: StringNullableFilter<"MachineExternalFactor"> | string | null
     createdAt?: DateTimeFilter<"MachineExternalFactor"> | Date | string
     updatedAt?: DateTimeFilter<"MachineExternalFactor"> | Date | string
-    machine?: XOR<MachineRelationFilter, MachineWhereInput>
-    producedFactor?: XOR<ExternalFactorNullableRelationFilter, ExternalFactorWhereInput> | null
-    sensitiveFactor?: XOR<ExternalFactorNullableRelationFilter, ExternalFactorWhereInput> | null
+    machine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
+    producedFactor?: XOR<ExternalFactorNullableScalarRelationFilter, ExternalFactorWhereInput> | null
+    sensitiveFactor?: XOR<ExternalFactorNullableScalarRelationFilter, ExternalFactorWhereInput> | null
   }, "machineId_factorId">
 
   export type MachineExternalFactorOrderByWithAggregationInput = {
@@ -10643,9 +10643,9 @@ export namespace Prisma {
     color?: StringNullableFilter<"Machine"> | string | null
     createdAt?: DateTimeFilter<"Machine"> | Date | string
     updatedAt?: DateTimeFilter<"Machine"> | Date | string
-    type?: XOR<MachineTypeRelationFilter, MachineTypeWhereInput>
-    owner?: XOR<UserRelationFilter, UserWhereInput>
-    plant?: XOR<PlantNullableRelationFilter, PlantWhereInput> | null
+    type?: XOR<MachineTypeScalarRelationFilter, MachineTypeWhereInput>
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plant?: XOR<PlantNullableScalarRelationFilter, PlantWhereInput> | null
     factors?: MachineExternalFactorListRelationFilter
     flowSources?: MaterialFlowListRelationFilter
     flowDestinations?: MaterialFlowListRelationFilter
@@ -10696,9 +10696,9 @@ export namespace Prisma {
     color?: StringNullableFilter<"Machine"> | string | null
     createdAt?: DateTimeFilter<"Machine"> | Date | string
     updatedAt?: DateTimeFilter<"Machine"> | Date | string
-    type?: XOR<MachineTypeRelationFilter, MachineTypeWhereInput>
-    owner?: XOR<UserRelationFilter, UserWhereInput>
-    plant?: XOR<PlantNullableRelationFilter, PlantWhereInput> | null
+    type?: XOR<MachineTypeScalarRelationFilter, MachineTypeWhereInput>
+    owner?: XOR<UserScalarRelationFilter, UserWhereInput>
+    plant?: XOR<PlantNullableScalarRelationFilter, PlantWhereInput> | null
     factors?: MachineExternalFactorListRelationFilter
     flowSources?: MaterialFlowListRelationFilter
     flowDestinations?: MaterialFlowListRelationFilter
@@ -10761,9 +10761,9 @@ export namespace Prisma {
     flowAmount?: FloatFilter<"MaterialFlow"> | number
     createdAt?: DateTimeFilter<"MaterialFlow"> | Date | string
     updatedAt?: DateTimeFilter<"MaterialFlow"> | Date | string
-    plant?: XOR<PlantRelationFilter, PlantWhereInput>
-    fromMachine?: XOR<MachineRelationFilter, MachineWhereInput>
-    toMachine?: XOR<MachineRelationFilter, MachineWhereInput>
+    plant?: XOR<PlantScalarRelationFilter, PlantWhereInput>
+    fromMachine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
+    toMachine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
   }
 
   export type MaterialFlowOrderByWithRelationInput = {
@@ -10791,9 +10791,9 @@ export namespace Prisma {
     flowAmount?: FloatFilter<"MaterialFlow"> | number
     createdAt?: DateTimeFilter<"MaterialFlow"> | Date | string
     updatedAt?: DateTimeFilter<"MaterialFlow"> | Date | string
-    plant?: XOR<PlantRelationFilter, PlantWhereInput>
-    fromMachine?: XOR<MachineRelationFilter, MachineWhereInput>
-    toMachine?: XOR<MachineRelationFilter, MachineWhereInput>
+    plant?: XOR<PlantScalarRelationFilter, PlantWhereInput>
+    fromMachine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
+    toMachine?: XOR<MachineScalarRelationFilter, MachineWhereInput>
   }, "id" | "plantId_fromMachineId_toMachineId">
 
   export type MaterialFlowOrderByWithAggregationInput = {
@@ -11601,12 +11601,12 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserRelationFilter = {
+  export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
   }
 
-  export type PlantRelationFilter = {
+  export type PlantScalarRelationFilter = {
     is?: PlantWhereInput
     isNot?: PlantWhereInput
   }
@@ -11828,12 +11828,12 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
-  export type MachineRelationFilter = {
+  export type MachineScalarRelationFilter = {
     is?: MachineWhereInput
     isNot?: MachineWhereInput
   }
 
-  export type ExternalFactorNullableRelationFilter = {
+  export type ExternalFactorNullableScalarRelationFilter = {
     is?: ExternalFactorWhereInput | null
     isNot?: ExternalFactorWhereInput | null
   }
@@ -11915,12 +11915,12 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
-  export type MachineTypeRelationFilter = {
+  export type MachineTypeScalarRelationFilter = {
     is?: MachineTypeWhereInput
     isNot?: MachineTypeWhereInput
   }
 
-  export type PlantNullableRelationFilter = {
+  export type PlantNullableScalarRelationFilter = {
     is?: PlantWhereInput | null
     isNot?: PlantWhereInput | null
   }
